@@ -27,8 +27,7 @@ print "mysql-backup.pl - $now\n";
 if (!(-d $mysqldump)) {die "$mysqldump does not exist!\n";}
 if (!(-d $backupdir)) {die "$backupdir does not exist!\n";}
 
-# This gets the names of the current mysql databases by doing a directory
-# listing of data dir and then running each through mysqldump
+# This gets the names of the current mysql databases
 
 $cmd = "mysql --defaults-extra-file=$mysqlconf --disable-column-names --batch -e 'show databases;'";
 @mysqldatabases = `$cmd`;
@@ -40,7 +39,7 @@ print "\nDumping mysql databases...\n\n";
 
 foreach $mysqldatabase (@mysqldatabases){
         next if $mysqldatabase eq "performance_schema";
-	next if $mysqldatabase eq "information_schema";
+        next if $mysqldatabase eq "information_schema";
         print "Dumping $mysqldatabase...\n";
         system "\/usr\/bin\/mysqldump --defaults-extra-file=$mysqlconf --opt $mysqldatabase \| \/bin\/gzip > $mysqldump\/$mysqldatabase.gz";
 }
