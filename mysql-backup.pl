@@ -17,10 +17,6 @@ $backupdays = 7;
 $mysqldump = '/var/lib/mysql/dump'; 
 $backupdir = '/var/lib/mysql/backup';
 
-# Lets set the mysql directory where the mysql databases reside.
-
-$mysqldbdir =  "/var/lib/mysql/data"; # This is the default mysql directory
-
 # getting current time and date
 chomp($now = `date '+%Y-%m-%d-%H%M%S'`);
 
@@ -30,7 +26,6 @@ print "mysql-backup.pl - $now\n";
 
 if (!(-d $mysqldump)) {die "$mysqldump does not exist!\n";}
 if (!(-d $backupdir)) {die "$backupdir does not exist!\n";}
-if (!(-d $mysqldbdir)) {die "$mysqldbdir does not exist!\n";}
 
 # This gets the names of the current mysql databases by doing a directory
 # listing of data dir and then running each through mysqldump
